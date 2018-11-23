@@ -42,4 +42,10 @@ RSpec.describe Order, type: :model do
     expect(Order.new(params.merge(phone: "123456789"))).to be_invalid
   end
 
+  it "is not valid with invalid status number" do
+    order = Order.new(params)
+    order.status = 2
+    expect(order).to be_invalid
+  end
+
 end
