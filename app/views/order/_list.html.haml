@@ -1,0 +1,21 @@
+%table{class: 'table'}
+  %tr
+    %th Flower
+    %th Delivery time
+    %th Client name
+    %th Address
+    %th Phone
+    %th Status
+    %td Actions
+
+  - @orders.each do |order|
+    %tr
+      %td= order.flower_name
+      %td= order.delivery_time.strftime("%m/%d/%Y %I:%M%p")
+      %td= order.client_name
+      %td= order.address
+      %td= order.phone
+      %td= Order::STATUSES[order.status]
+      %td
+        - if order.status == Order::PENDING
+          = button_to "Complete", {:controller => "order", :action => "deliver", :id => order.id, :status_id => params[:status_id]}, class: 'btn btn-success'

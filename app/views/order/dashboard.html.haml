@@ -1,0 +1,22 @@
+%br
+
+%h1 Orders list
+
+%br
+
+%h4 Filter orders:
+
+%form{id: "select_status"}
+  %label{class: "checkbox-inline"}
+    =radio_button_tag("status", 0, checked = (@status == 0), options = {})
+    =Order::STATUSES[0]
+  %label{class: "checkbox-inline"}
+    =radio_button_tag("status", 1, checked = (@status == 1), options = {})
+    =Order::STATUSES[1]
+  %label{class: "checkbox-inline"}
+    =radio_button_tag("status", -1, checked = (@status == -1), options = {})
+    Both
+%br
+
+%div{id: "orders-container"}
+  = render partial: 'list', locals: {orders: @orders }
