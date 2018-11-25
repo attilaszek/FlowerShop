@@ -1,6 +1,8 @@
 %table{class: 'table'}
   %tr
     %th Flower
+    %th Quantity
+    %th Total price
     %th Delivery time
     %th Client name
     %th Address
@@ -11,6 +13,8 @@
   - @orders.each do |order|
     %tr
       %td= order.flower_name
+      %td= order.quantity
+      %td= order.total_price
       %td= order.delivery_time.strftime("%m/%d/%Y %I:%M%p")
       %td= order.client_name
       %td= order.address
@@ -18,4 +22,4 @@
       %td= Order::STATUSES[order.status]
       %td
         - if order.status == Order::PENDING
-          = button_to "Complete", {:controller => "order", :action => "deliver", :id => order.id, :status_id => params[:status_id]}, class: 'btn btn-success'
+          = button_to "Complete", {:controller => "order", :action => "deliver", :id => order.id, :status_id => params[:status_id]}, class: 'btn btn-info'

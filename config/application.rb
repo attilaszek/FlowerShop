@@ -20,7 +20,7 @@ module FlowerShop
       allow do
         origins "*"
         resource "*", headers: :any, methods: [:get, 
-            :post, :put, :delete, :options]
+            :post, :put, :delete, :options, :patch]
       end
     end
   end

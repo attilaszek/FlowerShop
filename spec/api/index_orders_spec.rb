@@ -5,9 +5,11 @@ RSpec.describe API::V1::Orders do
   describe "GET" do
     
     before do
+      rose = Flower.create!(name: "Rose", price: 3.50)
+      begonia = Flower.create!(name: "Begonia", price: 2.30)
       Order.create({
-        flower_name: "Rose",
-        description: nil,
+        flower: rose,
+        quantity: 3,
         delivery_time: Time.new + 1.hours,
         client_name: "John Smith",
         address: "New York, 13th street, 47",
@@ -15,8 +17,8 @@ RSpec.describe API::V1::Orders do
       })
 
       Order.create({
-        flower_name: "Begonia",
-        description: nil,
+        flower: begonia,
+        quantity: 2,
         delivery_time: Time.new + 2.hours,
         client_name: "Eva Adams",
         address: "New York, 11th street, 5",
@@ -24,8 +26,8 @@ RSpec.describe API::V1::Orders do
       })
 
       Order.create({
-        flower_name: "Summer flowers",
-        description: nil,
+        flower: rose,
+        quantity: 1,
         delivery_time: Time.new + 5.days,
         client_name: "Jessica Roberts",
         address: "New York, 5th avenue, 123",
@@ -44,7 +46,7 @@ RSpec.describe API::V1::Orders do
       expect(result.length).to eq(3)
       expect(result[0]["flower_name"]).to eq("Rose")
       expect(result[1]["flower_name"]).to eq("Begonia")
-      expect(result[2]["flower_name"]).to eq("Summer flowers")
+      expect(result[2]["flower_name"]).to eq("Rose")
     end
 
   end

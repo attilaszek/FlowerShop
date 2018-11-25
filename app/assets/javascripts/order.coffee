@@ -7,6 +7,9 @@ $(document).on 'turbolinks:load', ->
     $.ajax
       type: 'GET'
       url: '/'
+      data: {
+        'status_id': $('input[name=status]:checked').val()
+      }
       dataType: "script"
   , 15 * 1000
 

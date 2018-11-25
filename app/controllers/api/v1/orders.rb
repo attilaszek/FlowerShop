@@ -12,8 +12,8 @@ module API
 
         desc "Create order"
         params do
-          requires :flower_name, type: String
-          optional :description, type: String
+          requires :flower_id, type: Integer
+          requires :quantity, type: Integer
           requires :delivery_time, type: DateTime
           requires :client_name, type: String
           requires :address, type: String
@@ -25,12 +25,13 @@ module API
 
         desc "Edit order"
         params do
-          requires :flower_name, type: String
-          optional :description, type: String
-          requires :delivery_time, type: DateTime
-          requires :client_name, type: String
-          requires :address, type: String
-          requires :phone, type: String
+          requires :id, type: Integer
+          optional :flower_id, type: Integer
+          optional :quantity, type: Integer
+          optional :delivery_time, type: DateTime
+          optional :client_name, type: String
+          optional :address, type: String
+          optional :phone, type: String
         end
         patch "edit", root: :orders do
           Order.find(params[:id]).update!(params)

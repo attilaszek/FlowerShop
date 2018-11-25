@@ -10,11 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_23_110219) do
+ActiveRecord::Schema.define(version: 2018_11_25_221849) do
+
+  create_table "flowers", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.float "price"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "orders", force: :cascade do |t|
-    t.string "flower_name"
-    t.string "description"
     t.datetime "delivery_time"
     t.string "client_name"
     t.string "address"
@@ -22,6 +28,9 @@ ActiveRecord::Schema.define(version: 2018_11_23_110219) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "status"
+    t.integer "flower_id"
+    t.integer "quantity"
+    t.index ["flower_id"], name: "index_orders_on_flower_id"
   end
 
 end

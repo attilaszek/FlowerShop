@@ -3,7 +3,8 @@ require 'rails_helper'
 RSpec.describe Order, type: :model do
 
   params = {
-    flower_name: "rose",
+    flower: Flower.create!(name: "Rose", price: 3.50),
+    quantity: 3,
     delivery_time: Time.new + 1.hours,
     client_name: "John Smith",
     address: "New York, 13th street, 47",
@@ -14,8 +15,16 @@ RSpec.describe Order, type: :model do
     expect(Order.new(params)).to be_valid
   end
 
-  it "is not valid without flower_name" do
-    expect(Order.new(params.merge(flower_name: nil))).to be_invalid
+  it "is not valid without flower" do
+    expect(Order.new(params.merge(flower: nil))).to be_invalid
+  end
+
+  it "is not valid without quantity" do
+    expect(Order.new(params.merge(quantity: nil))).to be_invalid
+  end
+
+  it "is not valid with quantity less than 1" do
+    expect(Order.new(params.merge(quantity: 0))).to be_invalid
   end
 
   it "is not valid without delivery_time" do
@@ -46,6 +55,11 @@ RSpec.describe Order, type: :model do
     order = Order.new(params)
     order.status = 2
     expect(order).to be_invalid
+  end
+
+  it "calculates total price" do
+    order = Order.new(params)
+    expect(order.total_price).to eq(10.50)
   end
 
 end
